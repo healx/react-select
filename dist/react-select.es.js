@@ -1277,7 +1277,6 @@ var Select$1 = function (_React$Component) {
 			var updatedValue = this.props.onSelectResetsInput ? '' : this.state.inputValue;
 			if (this.props.multi) {
 				this.setState({
-					focusedIndex: null,
 					inputValue: this.handleInputValueChange(updatedValue),
 					isOpen: !this.props.closeOnSelect
 				}, function () {
@@ -1467,7 +1466,6 @@ var Select$1 = function (_React$Component) {
 			}
 
 			this.setState({
-				focusedIndex: options[focusedIndex].index,
 				focusedOption: options[focusedIndex].option
 			});
 		}

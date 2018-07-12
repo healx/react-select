@@ -611,7 +611,6 @@ class Select extends React.Component {
 		const updatedValue = this.props.onSelectResetsInput ? '' : this.state.inputValue;
 		if (this.props.multi) {
 			this.setState({
-				focusedIndex: null,
 				inputValue: this.handleInputValueChange(updatedValue),
 				isOpen: !this.props.closeOnSelect,
 			}, () => {
@@ -776,7 +775,6 @@ class Select extends React.Component {
 		}
 
 		this.setState({
-			focusedIndex: options[focusedIndex].index,
 			focusedOption: options[focusedIndex].option
 		});
 	}
