@@ -265,9 +265,12 @@ class Select extends React.Component {
 				this._openAfterFocus = this.props.openOnClick;
 				this.focus();
 			} else if (!this.state.isOpen) {
+				if (this.props.onOptionFocus) {
+					this.props.onOptionFocus(null);
+				}
 				this.setState({
 					isOpen: true,
-					isPseudoFocused: false,
+					isPseudoFocused: true,
 					focusedOption: null,
 				});
 			}
@@ -282,6 +285,9 @@ class Select extends React.Component {
 		if (!this.props.searchable) {
 			// This code means that if a select is searchable, onClick the options menu will not appear, only on subsequent click will it open.
 			this.focus();
+			if (this.props.onOptionFocus) {
+				this.props.onOptionFocus(null);
+			}
 			return this.setState({
 				isOpen: !this.state.isOpen,
 				focusedOption: null,
@@ -311,6 +317,9 @@ class Select extends React.Component {
 			}
 
 			// if the input is focused, ensure the menu is open
+			if (this.props.onOptionFocus) {
+				this.props.onOptionFocus(null);
+			}
 			this.setState({
 				isOpen: toOpen,
 				isPseudoFocused: false,
@@ -320,6 +329,9 @@ class Select extends React.Component {
 			// otherwise, focus the input and open the menu
 			this._openAfterFocus = this.props.openOnClick;
 			this.focus();
+			if (this.props.onOptionFocus) {
+				this.props.onOptionFocus(null);
+			}
 			this.setState({ focusedOption: null });
 		}
 	}
@@ -689,6 +701,9 @@ class Select extends React.Component {
 	}
 
 	focusOption (option) {
+		if (this.props.onOptionFocus) {
+			this.props.onOptionFocus(option);
+		}
 		this.setState({
 			focusedOption: option
 		});
@@ -724,8 +739,12 @@ class Select extends React.Component {
 			.filter(option => !option.option.disabled);
 		this._scrollToFocusedOptionOnUpdate = true;
 		if (!this.state.isOpen) {
+			const focusedOption = this._focusedOption || (options.length ? options[dir === 'next' ? 0 : options.length - 1].option : null);
+			if (this.props.onOptionFocus) {
+				this.props.onOptionFocus(focusedOption);
+			}
 			const newState = {
-				focusedOption: this._focusedOption || (options.length ? options[dir === 'next' ? 0 : options.length - 1].option : null),
+				focusedOption: focusedOption,
 				isOpen: true,
 			};
 			if (this.props.onSelectResetsInput) {
@@ -774,8 +793,14 @@ class Select extends React.Component {
 			focusedIndex = 0;
 		}
 
+		const focusedOption = options[focusedIndex].option;
+
+		if (this.props.onOptionFocus) {
+			this.props.onOptionFocus(focusedOption);
+		}
+
 		this.setState({
-			focusedOption: options[focusedIndex].option
+			focusedOption: focusedOption,
 		});
 	}
 

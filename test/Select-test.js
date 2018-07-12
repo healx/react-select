@@ -277,7 +277,10 @@ describe('Select', () => {
 	});
 
 	describe('with simple options', () => {
+		let onOptionFocus;
+
 		beforeEach(() => {
+			onOptionFocus = sinon.spy();
 			options = [
 				{ value: 'one', label: 'One' },
 				{ value: 'two', label: 'Two' },
@@ -289,6 +292,7 @@ describe('Select', () => {
 				value: 'one',
 				options: options,
 				simpleValue: true,
+				onOptionFocus: onOptionFocus,
 			});
 		});
 
@@ -483,6 +487,10 @@ describe('Select', () => {
 				'to have text',
 				'Two'
 			);
+			expect(onOptionFocus, 'was called with', {
+				value: 'two',
+				label: 'Two',
+			});
 		});
 
 		it('should move the focused value to the second value when down pressed', () => {
@@ -504,6 +512,10 @@ describe('Select', () => {
 				'to have text',
 				'Three'
 			);
+			expect(onOptionFocus, 'was called with', {
+				value: 'three',
+				label: 'Three',
+			});
 		});
 
 		it('should loop round to top item when down is pressed on the last item', () => {
@@ -529,6 +541,10 @@ describe('Select', () => {
 				'to have text',
 				'One'
 			);
+			expect(onOptionFocus, 'was called with', {
+				value: 'one',
+				label: 'One',
+			});
 		});
 
 		it('should loop round to bottom item when up is pressed on the first item', () => {
@@ -546,6 +562,10 @@ describe('Select', () => {
 				'to have text',
 				'Three'
 			);
+			expect(onOptionFocus, 'was called with', {
+				value: 'three',
+				label: 'Three',
+			});
 		});
 
 		it('should move the focused value to the second item when up pressed twice', () => {
@@ -567,6 +587,10 @@ describe('Select', () => {
 				'to have text',
 				'Two'
 			);
+			expect(onOptionFocus, 'was called with', {
+				value: 'two',
+				label: 'Two',
+			});
 		});
 
 		it('should move the focused value to the end when pressing end', () => {
@@ -581,6 +605,10 @@ describe('Select', () => {
 				'to have text',
 				'Three'
 			);
+			expect(onOptionFocus, 'was called with', {
+				value: 'three',
+				label: 'Three',
+			});
 		});
 
 		it('should move the focused value to the beginning when pressing home', () => {
@@ -596,6 +624,10 @@ describe('Select', () => {
 				'to have text',
 				'One'
 			);
+			expect(onOptionFocus, 'was called with', {
+				value: 'one',
+				label: 'One',
+			});
 		});
 
 		it('should move the focused value to the end if page down is pressed and number of items is less than page size', () => {
@@ -613,6 +645,10 @@ describe('Select', () => {
 				'to have text',
 				'Three'
 			);
+			expect(onOptionFocus, 'was called with', {
+				value: 'three',
+				label: 'Three',
+			});
 		});
 
 		it('should move the focused value down by page size on page down using default page size', () => {
@@ -621,6 +657,7 @@ describe('Select', () => {
 				value: 'one',
 				options: longerListOptions,
 				simpleValue: true,
+				onOptionFocus: onOptionFocus,
 			});
 
 			var selectControl = getSelectControl(longerListInstance);
@@ -637,6 +674,10 @@ describe('Select', () => {
 				'to have text',
 				'Six'
 			);
+			expect(onOptionFocus, 'was called with', {
+				value: 'six',
+				label: 'Six',
+			});
 		});
 
 		it('should move the focused value down by page size on page down using custom page size', () => {
@@ -646,6 +687,7 @@ describe('Select', () => {
 				options: longerListOptions,
 				simpleValue: true,
 				pageSize: 7,
+				onOptionFocus: onOptionFocus,
 			});
 
 			var selectControl = getSelectControl(longerListInstance);
@@ -662,6 +704,10 @@ describe('Select', () => {
 				'to have text',
 				'Eight'
 			);
+			expect(onOptionFocus, 'was called with', {
+				value: 'eight',
+				label: 'Eight',
+			});
 		});
 
 		it('should move the focused value to the start if page up is pressed and number of items is less than page size', () => {
@@ -680,6 +726,10 @@ describe('Select', () => {
 				'to have text',
 				'One'
 			);
+			expect(onOptionFocus, 'was called with', {
+				value: 'one',
+				label: 'One',
+			});
 		});
 
 		it('should move the focused value up by page size on page up using default page size', () => {
@@ -688,6 +738,7 @@ describe('Select', () => {
 				value: 'one',
 				options: longerListOptions,
 				simpleValue: true,
+				onOptionFocus: onOptionFocus,
 			});
 
 			var selectControl = getSelectControl(longerListInstance);
@@ -702,6 +753,10 @@ describe('Select', () => {
 				'to have text',
 				'Five'
 			);
+			expect(onOptionFocus, 'was called with', {
+				value: 'five',
+				label: 'Five',
+			});
 		});
 
 		it('should move the focused value up by page size on page up using custom page size', () => {
@@ -711,6 +766,7 @@ describe('Select', () => {
 				options: longerListOptions,
 				simpleValue: true,
 				pageSize: 7,
+				onOptionFocus: onOptionFocus,
 			});
 
 			var selectControl = getSelectControl(longerListInstance);
@@ -725,6 +781,10 @@ describe('Select', () => {
 				'to have text',
 				'Three'
 			);
+			expect(onOptionFocus, 'was called with', {
+				value: 'three',
+				label: 'Three',
+			});
 		});
 
 		it('should clear the selection on escape', () => {
@@ -736,6 +796,7 @@ describe('Select', () => {
 				'to contain no elements matching',
 				'.Select-option'
 			);
+			expect(onOptionFocus, 'was called with', null);
 		});
 
 		it('should open the options on arrow down with the top option focused, when the options are closed', () => {
@@ -753,6 +814,10 @@ describe('Select', () => {
 				'to have text',
 				'One'
 			);
+			expect(onOptionFocus, 'was called with', {
+				value: 'one',
+				label: 'One',
+			});
 		});
 
 		it('should open the options on arrow up with the top option focused, when the options are closed', () => {
@@ -770,6 +835,10 @@ describe('Select', () => {
 				'to have text',
 				'One'
 			);
+			expect(onOptionFocus, 'was called with', {
+				value: 'one',
+				label: 'One',
+			});
 		});
 
 		it('should close the options one the second click on the arrow', () => {
@@ -789,6 +858,7 @@ describe('Select', () => {
 				'to contain no elements matching',
 				'.Select-option'
 			);
+			expect(onOptionFocus, 'was called with', null);
 		});
 
 		it('should ignore a right mouse click on the arrow', () => {
@@ -5321,7 +5391,9 @@ describe('Select', () => {
 		});
 
 		describe('with multiselect', () => {
+			let onOptionFocus;
 			beforeEach(() => {
+				onOptionFocus = sinon.spy();
 				wrapper = createControlWithWrapper(
 					{
 						options: [
@@ -5334,6 +5406,7 @@ describe('Select', () => {
 						value: ['three', 'two'],
 						multi: true,
 						closeOnSelect: false,
+						onOptionFocus: onOptionFocus,
 					},
 					{
 						wireUpOnChangeToValue: true,
@@ -5418,6 +5491,10 @@ describe('Select', () => {
 					<input role="combobox" />
 				).then(input => {
 					expect(instance.state.focusedOption, 'to equal', {
+						value: 'one',
+						label: 'label one',
+					});
+					expect(onOptionFocus, 'was called with', {
 						value: 'one',
 						label: 'label one',
 					});
@@ -5568,9 +5645,11 @@ describe('Select', () => {
 		let event = {};
 		let focusStub = {};
 		let setStateStub = {};
+		let onOptionFocus;
 
 		beforeEach(() => {
 			preventDefault = sinon.spy();
+			onOptionFocus = sinon.spy();
 			event = {
 				type: 'mousedown',
 				button: 0,
@@ -5582,6 +5661,7 @@ describe('Select', () => {
 
 			instance = createControl({
 				openOnClick: true,
+				onOptionFocus: onOptionFocus,
 			});
 
 			focusStub = sinon.stub(instance, 'focus');
@@ -5606,6 +5686,7 @@ describe('Select', () => {
 			expect(setStateStub, 'was called once');
 			expect(instance._openAfterFocus, 'to equal', true);
 			expect(setStateStub, 'was called with', { focusedOption: null });
+			expect(onOptionFocus, 'was called with', null);
 		});
 
 		it('for isFocused=true and _focusAfterClear=false should  call focus, setState, preventDefault', () => {
@@ -5622,6 +5703,7 @@ describe('Select', () => {
 				isPseudoFocused: false,
 				focusedOption: null,
 			});
+			expect(onOptionFocus, 'was called with', null);
 		});
 
 		it('for isFocused=true and _focusAfterClear=true should set _focusAfterClear and call focus, setState, preventDefault', () => {
@@ -5641,10 +5723,14 @@ describe('Select', () => {
 				isPseudoFocused: false,
 				focusedOption: null,
 			});
+			expect(onOptionFocus, 'was called with', null);
 		});
 
 		it('for searchable=false and should call focus, setState, preventDefault', () => {
-			instance = createControl({ searchable: false });
+			instance = createControl({
+				searchable: false,
+				onOptionFocus: onOptionFocus,
+			});
 
 			focusStub = sinon.stub(instance, 'focus');
 			setStateStub = sinon.stub(instance, 'setState');
@@ -5659,6 +5745,7 @@ describe('Select', () => {
 				isOpen: !isOpen,
 				focusedOption: null,
 			});
+			expect(onOptionFocus, 'was called with', null);
 		});
 
 		it('for tagName="INPUT", isFocused=false should call only focus', () => {
@@ -5680,6 +5767,7 @@ describe('Select', () => {
 			expect(preventDefault, 'was not called');
 			expect(focusStub, 'was called once');
 			expect(setStateStub, 'was not called');
+			expect(onOptionFocus, 'was not called');
 		});
 
 		it('for tagName="INPUT", isFocused=true, isOpen=false should call setState', () => {
@@ -5702,9 +5790,10 @@ describe('Select', () => {
 			expect(setStateStub, 'was called once');
 			expect(setStateStub, 'was called with', {
 				isOpen: true,
-				isPseudoFocused: false,
+				isPseudoFocused: true,
 				focusedOption: null,
 			});
+			expect(onOptionFocus, 'was called with', null);
 		});
 
 		it('for tagName="INPUT", isFocused=true, isOpen=true should return', () => {
@@ -5725,6 +5814,7 @@ describe('Select', () => {
 			expect(preventDefault, 'was not called');
 			expect(focusStub, 'was not called');
 			expect(setStateStub, 'was not called');
+			expect(onOptionFocus, 'was not called');
 		});
 
 		it('should return for disabled', () => {
@@ -5747,6 +5837,7 @@ describe('Select', () => {
 			expect(preventDefault, 'was not called');
 			expect(focusStub, 'was not called');
 			expect(setStateStub, 'was not called');
+			expect(onOptionFocus, 'was not called');
 		});
 
 		it('should return for button !=0', () => {
@@ -5764,6 +5855,7 @@ describe('Select', () => {
 			expect(preventDefault, 'was not called');
 			expect(focusStub, 'was not called');
 			expect(setStateStub, 'was not called');
+			expect(onOptionFocus, 'was not called');
 		});
 	});
 });
